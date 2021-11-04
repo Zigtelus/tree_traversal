@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+        <div class="body">
+            <ul>
+                <li>
+                    <input type="checkbox">
+                    <ul>
+                        <li>
+                            <input type="checkbox">
+                            <ul>
+                                <li>
+                                    <input type="checkbox">
+                                    <ul>
+                                        <li>
+                                            <input type="checkbox">
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <input type="checkbox">
+                        </li>
+                        <li>
+                            <input type="checkbox">
+                            <ul>
+                                <li>
+                                    <input type="checkbox">
+                                    <ul>
+                                        <li>
+                                            <input type="checkbox">
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <input type="checkbox">
+                </li>
+            </ul>
+        </div>
+
+
+</body>
+</html>
+
+<script>
+    const inputs = document.querySelectorAll('input');
+
+    inputs.forEach(item => item.onclick = getInputs);
+
+    function getInputs() {
+        const status = this.checked;
+        const getBrothers = this.parentElement.children;
+
+        if (getBrothers[1] && getBrothers[1].children[1]) {
+            for (let getBrother in getBrothers[1].children) {
+                if (typeof getBrothers[1].children[getBrother] === 'object') {
+                    let inputChild = getBrothers[1].children[getBrother].children[0];
+                    getChldInput.call(inputChild, status);
+                }
+            }
+        } else {
+            getChldInput.call(this, status);
+        };
+    };
+
+    function getChldInput(status) {
+        this.checked = status;
+        const getBrothers = this.parentElement.children;
+
+
+        if (getBrothers.length === 2) {
+            const thisElement = getBrothers[1].children[0].children[0];
+            getChldInput.call(thisElement, status);
+        } else {
+            return;
+        }
+    };
+</script>
