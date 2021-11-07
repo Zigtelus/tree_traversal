@@ -19,37 +19,26 @@
         list-style-type: none;
     }
 
-    input {
-        margin: 7px;
-    }
-
     .df {
         display: flex;
+        align-items: start;
     }
 
-    .dfc {
+    li {
+        margin: 10px;
         display: flex;
-        flex-direction: column;
-    }
-
-    .ma {
-        margin: 0 auto;
-    }
-
-    .first {
-        width: 168px;
-        display: flex;
-        justify-content: space-between;
+        align-items: start;
     }
 </style>
 <body>
-        <div class="body">
-            <ul class="df first">
-                <li class="dfc">
-                    <input class="ma" id="Cloths" type="checkbox">
-                    <ul class="df">
-                        <li>
+        <div>
+            <ul>
+                <li class="df branch">
+                    <input id="Cloths" type="checkbox">
+                    <ul>
+                        <li class="branch">
                             <input type="checkbox">
+<!--                            <span>1</span>-->
                             <ul>
                                 <li>
                                     <input type="checkbox">
@@ -61,25 +50,43 @@
                                 </li>
                             </ul>
                         </li>
-                        <li>
+                        <li class="branch">
                             <input type="checkbox">
                         </li>
-                        <li>
+                        <li class="branch">
                             <input type="checkbox">
                             <ul>
                                 <li>
+                                    <input type="checkbox">
+                                </li>
+                                <li class="branch">
                                     <input type="checkbox">
                                     <ul>
                                         <li>
                                             <input type="checkbox">
                                         </li>
+                                        <li>
+                                            <input type="checkbox">
+                                        </li>
+                                        <li>
+                                            <input type="checkbox">
+                                        </li>
+                                        <li>
+                                            <input type="checkbox">
+                                        </li>
                                     </ul>
+                                </li>
+                                <li>
+                                    <input type="checkbox">
+                                </li>
+                                <li>
+                                    <input type="checkbox">
                                 </li>
                             </ul>
                         </li>
                     </ul>
                 </li>
-                <li>
+                <li class="branch">
                     <input type="checkbox">
                 </li>
             </ul>
@@ -111,13 +118,20 @@
     };
 
     function getChldInput(status) {
+        console.log(this)
         this.checked = status;
         const getBrothers = this.parentElement.children;
 
 
+
+
         if (getBrothers.length === 2) {
             const thisElement = getBrothers[1].children[0].children[0];
-            getChldInput.call(thisElement, status);
+            if (getBrothers[1].children.length > 1) {
+                getInputs.call(getBrothers[0]);
+            } else {
+                getChldInput.call(thisElement, status);
+            }
         } else {
             return;
         }
